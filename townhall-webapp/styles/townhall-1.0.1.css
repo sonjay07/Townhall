@@ -1,0 +1,29 @@
+:root {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  --color-red: hsl(0deg 80% 50%);
+  --color-blue: hsl(270deg 75% 60%);
+  --i:1;
+}
+
+.btn {
+  border-radius: 30px;
+  width: 140px; 
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #d3ab55;
+  color: #262626; 
+}
+
+.btn--warning{
+  background-color: var(--color-red);
+  color: rgb(255, 255, 255);
+}
+
+.btn__text {
+  font-style: italic;
+  font-size: 12px;
+}
