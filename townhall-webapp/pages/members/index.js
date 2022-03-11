@@ -3,20 +3,11 @@ import { signOut, useSession } from 'next-auth/react'
 
 
 function MembersPage() {
-    const { data: session } = useSession()
-
+   const { data: session } = useSession()
+   
    const getUserLoginInfo = async ()  =>{
         const reqBody = { usernameOrEmail : "margarita@gmail.com", password : "1234" }
-       
-        //const res = await fetch("http://localhost:8086/api/auth/signin",{ 
-        //    mode: 'no-cors' // 'cors' by default
-        //}); 
-        //const data = res.json();
-
-        //const reqBody = {email: enteredEmail, text: enteredFeedback}
-
         console.log('reqBody .... ' , reqBody);
-
         const response = await fetch('http://localhost:8086/api/auth/signin', {
             method: 'POST',
             body: JSON.stringify(reqBody),
@@ -25,10 +16,11 @@ function MembersPage() {
             },
            // mode: 'no-cors',
         })
-
           const data = await response.json();
           console.log('POST: ', data);
-       
+          console.log('POST2: ', data.roles[2]);
+
+          return data;
     }
   
 
@@ -43,7 +35,7 @@ function MembersPage() {
     return (
         <Fragment>
             <h1>Members Page  </h1> <a>{session.user.name}</a>
-          
+            {JSON.stringify(getUserLoginInfo)}
             <button
                 onClick={() => {
                     signOut({ redirect: false })
