@@ -16,45 +16,24 @@ export default NextAuth({
         // Your own logic here either check agains database or api endpoint
         // e.g. verify password if valid return user object.
 
-       // const userInfo = userService.login(credentials.email, credentials.ps);
-       //https://dev.to/dawnind/authentication-with-credentials-using-next-auth-and-mongodb-part-2-2g8k
+        //const { email, password } = credentials;
 
-        //const getUserLoginInfo = async ()  =>{
-        //const reqBody = { usernameOrEmail : "margarita@gmail.com", password : "1234" }
-        //console.log('reqBody .... ' , reqBody);
-        ///const response = await fetch('http://localhost:8086/api/auth/signin', {
-        //    method: 'POST',
-        //    body: JSON.stringify(reqBody),
-        //    headers: {
-        //        'Content-Type' : 'application/json'
-        //    },
-           // mode: 'no-cors',
-       // })
-        //  const data = await response.json();
-        //  console.log('POST: ', data);
-        //  return data;
-   // }
-     
-   // console.log('getUserLoginInfo: ', getUserLoginInfo);
-
-   const client = await ApiLogin();
-
-  // const usersCollection = client.db().collection('users');
-
-  // const user = await usersCollection.findOne({
-   //  email: credentials.email,
-   //});
+        const client = await ApiLogin();
 
         const user = {
-          id: 1,
-          name: client.roles[1],
+          id: 14567,
+          name: client.roles[0],
           email: client.roles[1],
           password: '12345',
+          token: client.accessToken
         }
+        
         if (
           credentials.email === user.email &&
-          credentials.password === user.password
+          credentials.password === user.password 
+          
         )
+         // console.log('user', user);
           return user
         throw new Error('Incorrect Credentials') // This will be error message displayed in login form
       },
@@ -63,12 +42,17 @@ export default NextAuth({
   callbacks: {
     // called after sucessful signin
     jwt: async ({ token, user }) => {
-      if (user) token.id = user.id
+      console.log('user', user);
+      console.log('token', token);
+      
+      if (user) token.id = user.token
       return token
     }, // called whenever session is checked
-    session: async ({ session, token }) => {
-      if (token) session.id = token.id
-      return session
+    session: async ({ session, token, user }) => {
+      if (token) 
+         session.id = token.id,
+         session.data = token.data
+         return session
     },
   },
   secret: 'SECRET_HERE',

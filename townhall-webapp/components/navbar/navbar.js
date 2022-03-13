@@ -4,14 +4,17 @@ const Navbar = () => {
   const { data: session } = useSession()
   return (
     <div
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        width: '100%',
-        backgroundColor: '#b91c1c',
-      }}
+     
     >
       <a>{session.user.name}</a>
+       <br />
+      <span>token:  {session.id}</span>
+      <br />
+      <span>email:  {session.user.email}</span>
+      <br />
+      <span>id:  {session.user.id}</span>
+      <br />
+      <span>data:  {session.data}</span>
       &nbsp;
       <button
         onClick={() => {
